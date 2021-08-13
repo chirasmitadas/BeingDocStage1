@@ -47,7 +47,12 @@ var blntImage,blnt;
 
 var wddImage,wdd;
 
-var cm,cmImage
+var cm,cmImage;
+
+//Line groups
+var lineGrp;
+//Germ Groups
+var germGroup;
 
 function preload(){
 
@@ -78,38 +83,67 @@ function preload(){
 
 function setup() {
   
-  createCanvas(1500,660);
+  createCanvas(windowWidth,windowHeight);
+  //createCanvas(1500,660);
+  lineGrp = createGroup();
+  germGroup = createGroup();
   
   line1=createSprite(660, 30, 740, 20);
+  lineGrp.add(line1);
   line2=createSprite(300,165,20,290);
+  lineGrp.add(line2);
   line3=createSprite(260,320,290,20);
+  lineGrp.add(line3);
   line4=createSprite(110,370,20,120);
+  lineGrp.add(line4);
   line5=createSprite(260,420,290,20);
+  lineGrp.add(line5);
   line6=createSprite(260,500,290,20);
+  lineGrp.add(line6);
   line7=createSprite(110,470,20,80);
+  lineGrp.add(line7);
   line8=createSprite(230,590,20,200);
-  line9=createSprite(625, 650, 810, 20);
+  lineGrp.add(line8);
+  line9=createSprite(625, height-20, 810, 20);
+  line9.shapeColor="red";
+  lineGrp.add(line9);
   line10=createSprite(500,140,20,200);
+  lineGrp.add(line10);
   line11=createSprite(560,240,140,20);
+ 
+  lineGrp.add(line11);
   line12=createSprite(620,315,20,150);
+  
+  lineGrp.add(line12);
   line13=createSprite(810,470,400,20);
+  
+  lineGrp.add(line13);
   line14=createSprite(1020,260,20,440);
+  
+  lineGrp.add(line14);
   line15=createSprite(370,180,160,20);
-  line16=createSprite(1020,500,20,280)
+  
+  lineGrp.add(line15);
+  line16=createSprite(1020,500,20,280);
+ 
+  lineGrp.add(line16);
 
+  
   germ1=createSprite(650,170,20,20);
   germ1.velocityX=0;
   germ1.velocityY=-0;
   germ1.addImage("g1",germImage);
   germ1.scale=0.4;
 
+  germGroup.add(germ1);
 
   germ2=createSprite(500,370,20,20);
   germ2.velocityX=0;
   germ2.velocityY=-0;
   germ2.addImage("g2",germImage);
   germ2.scale=0.4;
-  
+
+  germGroup.add(germ2);  
 
   germ3=createSprite(540,500,20,20);
   germ3.velocityX=0;
@@ -117,32 +151,35 @@ function setup() {
   germ3.addImage("g3",germImage);
   germ3.scale=0.4;
   
+  germGroup.add(germ3);
+
   germ4=createSprite(400,570,20,20);
   germ4.velocityX=0;
   germ4.velocityY=-0;
   germ4.addImage("g4",germImage);
-  germ4.scale=0.4;
-  
+  germ4.scale=0.4;  
+  germGroup.add(germ4);
 
   germ5=createSprite(680,600,20,20);
   germ5.velocityX=0;
   germ5.velocityY=-0;
   germ5.addImage("g5",germImage);
   germ5.scale=0.4;
-  
+  germGroup.add(germ5);
 
   germ6=createSprite(880,450,20,20);
   germ6.velocityX=0;
   germ6.velocityY=-0;
   germ6.addImage("g6",germImage);
   germ6.scale=0.4;
+  germGroup.add(germ6);
   
   germ7=createSprite(890,570,20,20);
   germ7.velocityX=0;
   germ7.velocityY=-0;
   germ7.addImage("g7",germImage);
   germ7.scale=0.4;
- 
+  germGroup.add(germ7);
 
   doctor=createSprite(300,600);
   doctor.addAnimation("d1",doctorImg);
@@ -265,7 +302,15 @@ function setup() {
   score=0;
   
   life=1;
- 
+
+  
+//display Instructions
+displayMsg("General Instructions",
+"You have only 1 life if a germ touches you then the game will stop\n"+
+"If the germ touches  any 1 patient then the game will stop\n"+
+"The button to start the generator appears on the left side of the screen\n"+
+"If the sanitizer touches the germ then the score increases by 1");
+
 }
 
 function game(){
@@ -312,51 +357,39 @@ function game(){
   }
 
   if(saniGroup.isTouching(germ1)){
-
     saniGroup.destroyEach();
     germ1.destroy();
     score=score+1;
-
   }
 
   if(saniGroup.isTouching(germ2)){
-
     saniGroup.destroyEach();
     germ2.destroy();
     score=score+1;
-
   }
 
   if(saniGroup.isTouching(germ3)){
-
     saniGroup.destroyEach();
     germ3.destroy();
     score=score+1;
-
   }
 
   if(saniGroup.isTouching(germ4)){
-
     saniGroup.destroyEach();
     germ4.destroy();
     score=score+1;
-    
   }
 
   if(saniGroup.isTouching(germ5)){
-
     saniGroup.destroyEach();
     germ5.destroy();
     score=score+1;
-
   }
 
   if(saniGroup.isTouching(germ6)){
-
     saniGroup.destroyEach();
     germ6.destroy();
     score=score+1;
-
   }
 
   if(saniGroup.isTouching(germ7)){
@@ -364,9 +397,12 @@ function game(){
     saniGroup.destroyEach();
     germ7.destroy();
     score=score+1;
-
   }
 
+  if(saniGroup.isTouching(lineGrp)){
+    saniGroup.destroyEach();
+  }
+  /*
   if(saniGroup.isTouching(line1)){
 
     saniGroup.destroyEach();
@@ -446,7 +482,7 @@ function game(){
   if(saniGroup.isTouching(line16)){
 
     saniGroup.destroyEach();
-  }
+  }*/
 
   if(saniGroup.isTouching(bed1)){
 
@@ -520,46 +556,43 @@ if(saniFGroup.isTouching(germ1)){
 if(saniFGroup.isTouching(germ2)){
   saniFGroup.destroyEach();
   germ2.destroy();
-
   score=score+1;
-
 }
 if(saniFGroup.isTouching(germ3)){
   saniFGroup.destroyEach();
   germ3.destroy();
-
   score=score+1;
-
 }
+
 if(saniFGroup.isTouching(germ4)){
   saniFGroup.destroyEach();
   germ4.destroy();
-
   score=score+1;
-
 }
+
 if(saniFGroup.isTouching(germ5)){
   saniFGroup.destroyEach();
   germ5.destroy();
-
   score=score+1;
-
 }
+
 if(saniFGroup.isTouching(germ6)){
   saniFGroup.destroyEach();
   germ6.destroy();
-
   score=score+1;
-
 }
+
 if(saniFGroup.isTouching(germ7)){
   saniFGroup.destroyEach();
   germ7.destroy();
-
   score=score+1;
-
 }
-if(saniFGroup.isTouching(line1)){
+
+if(saniFGroup.isTouching(lineGrp)){
+  saniFGroup.destroyEach(); 
+}
+
+/*if(saniFGroup.isTouching(line1)){
   saniFGroup.destroyEach();
 
 }
@@ -607,10 +640,23 @@ if(saniFGroup.isTouching(line15)){
 }
 if(saniFGroup.isTouching(line16)){
   saniFGroup.destroyEach();
-}
-if(saniFGroup.isTouching(bed1)){
+}*/
+if(saniFGroup.isTouching(bed1) ||
+saniFGroup.isTouching(bed2)||
+saniFGroup.isTouching(bed3) ||
+saniFGroup.isTouching(bed4) ||
+saniFGroup.isTouching(bed5) ||
+saniFGroup.isTouching(bed6) ||
+saniFGroup.isTouching(gen1) ||
+saniFGroup.isTouching(genB1) ||
+saniFGroup.isTouching(dropBox) ||
+saniFGroup.isTouching(o2) ||
+saniFGroup.isTouching(door) ||
+saniFGroup.isTouching(startLine)){
   saniFGroup.destroyEach();
 }
+
+/*
 if(saniFGroup.isTouching(bed2)){
   saniFGroup.destroyEach();
 }
@@ -644,10 +690,8 @@ if(saniFGroup.isTouching(door)){
 if(saniFGroup.isTouching(startLine)){
   saniFGroup.destroyEach();
 }
-
-
-
- if (keyDown(LEFT_ARROW)) {
+*/
+if (keyDown(LEFT_ARROW)) {
   doctor.x = doctor.x-2;
   doctor.changeAnimation("fliped");
 }
@@ -655,21 +699,16 @@ if(saniFGroup.isTouching(startLine)){
 if (keyDown(RIGHT_ARROW)) {
   doctor.x = doctor.x+2;
   doctor.changeAnimation("d1");
- }
+}
   
 if (keyDown(UP_ARROW)) {
- 
-
   doctor.y = doctor.y-2;
- }
-   
-
+}
 
 if (keyDown(DOWN_ARROW)) {
   doctor.y = doctor.y+2;
- 
-   
 }
+
 if (keyDown("space")||(keyDown("space"))) {
   createSani();
   doctor.changeAnimation("d1");
@@ -678,27 +717,15 @@ if (keyDown("space")||(keyDown("space"))) {
 if (keyDown("F")||(keyDown("F"))) {
   createSaniF();
   doctor.changeAnimation("fliped");
-  
 }
-
-//ddddddddddddddddddddddddddddddddddddddddddddddddddddd
-
-
-
 
 if(mousePressedOver(onB)){
-  
   onB.visible=false;
   offB.visible=false;
-  
+  console.log("1");
   medal1.visible=true;
   door.destroy();
- 
-
-
 }
-
-
 
 if(doctor.isTouching(o2)){
   o2.x=doctor.x+25;
@@ -712,7 +739,6 @@ if(o2.isTouching(dropBox)){
 if(doctor.isTouching(genB1)){
   onB.visible=true;
   offB.visible=true;
-  
 }
 
 if(doctor.isTouching(ooline)){
@@ -724,8 +750,11 @@ if(score>=7){
   medal2.visible=true;
 }
 
+if(germGroup.isTouching(doctor)){
+  life = life -1;
+}
 
-if(germ1.isTouching(doctor)){
+/*if(germ1.isTouching(doctor)){
   life=life-1;
 }
 if(germ2.isTouching(doctor)){
@@ -746,6 +775,7 @@ if(germ6.isTouching(doctor)){
 if(germ7.isTouching(doctor)){
   life=life-1;
 }
+*/
 
 if(germ1.isTouching(bed1)){
   bed1.destroy();
@@ -905,7 +935,9 @@ if(germ7.isTouching(bed6)){
   life=life-1;
 }
 
-o2.bounceOff(line1);
+o2.bounceOff(lineGrp);
+
+/*o2.bounceOff(line1);
 o2.bounceOff(line2);
 o2.bounceOff(line3);
 o2.bounceOff(line4);
@@ -920,10 +952,12 @@ o2.bounceOff(line12);
 o2.bounceOff(line13);
 o2.bounceOff(line14);
 o2.bounceOff(line15);
-o2.bounceOff(line16);
+o2.bounceOff(line16);*/
 o2.bounceOff(door);
 
-germ1.bounceOff(line1);
+germGroup.bounceOff(lineGrp);
+
+/*germ1.bounceOff(line1);
 germ1.bounceOff(line2);
 germ1.bounceOff(line3);
 germ1.bounceOff(line4);
@@ -938,10 +972,11 @@ germ1.bounceOff(line12);
 germ1.bounceOff(line13);
 germ1.bounceOff(line14);
 germ1.bounceOff(line15);
-germ1.bounceOff(line16);
+germ1.bounceOff(line16);*/
 germ1.bounceOff(door);
 
-
+doctor.bounceOff(lineGrp);
+/*
 doctor.bounceOff(line1);
 doctor.bounceOff(line2);
 doctor.bounceOff(line3);
@@ -957,13 +992,11 @@ doctor.bounceOff(line12);
 doctor.bounceOff(line13);
 doctor.bounceOff(line14);
 doctor.bounceOff(line15);
-doctor.bounceOff(line16);
+doctor.bounceOff(line16);*/
 doctor.bounceOff(door);
 doctor.bounceOff(gen1);
 doctor.bounceOff(genB1);
 doctor.bounceOff(startLine);
-
-
 
 doctor.bounceOff(bed1);
 doctor.bounceOff(bed2);
@@ -971,10 +1004,9 @@ doctor.bounceOff(bed3);
 doctor.bounceOff(bed4);
 doctor.bounceOff(bed5);
 doctor.bounceOff(bed6);
-
 doctor.bounceOff(dropBox);
 
-germ2.bounceOff(line1);
+/*germ2.bounceOff(line1);
 germ2.bounceOff(line2);
 germ2.bounceOff(line3);
 germ2.bounceOff(line4);
@@ -989,11 +1021,11 @@ germ2.bounceOff(line12);
 germ2.bounceOff(line13);
 germ2.bounceOff(line14);
 germ2.bounceOff(line15);
-germ2.bounceOff(line16);
+germ2.bounceOff(line16);*/
 germ2.bounceOff(door);
 
 
-germ3.bounceOff(line1);
+/*germ3.bounceOff(line1);
 germ3.bounceOff(line2);
 germ3.bounceOff(line3);
 germ3.bounceOff(line4);
@@ -1008,10 +1040,10 @@ germ3.bounceOff(line12);
 germ3.bounceOff(line13);
 germ3.bounceOff(line14);
 germ3.bounceOff(line15);
-germ3.bounceOff(line16);
+germ3.bounceOff(line16);*/
 germ3.bounceOff(door);
 
-
+/*
 germ4.bounceOff(line1);
 germ4.bounceOff(line2);
 germ4.bounceOff(line3);
@@ -1027,9 +1059,10 @@ germ4.bounceOff(line12);
 germ4.bounceOff(line13);
 germ4.bounceOff(line14);
 germ4.bounceOff(line15);
-germ4.bounceOff(line16);
+germ4.bounceOff(line16);*/
 germ4.bounceOff(door);
 
+/*
 germ5.bounceOff(line1);
 germ5.bounceOff(line2);
 germ5.bounceOff(line3);
@@ -1045,9 +1078,10 @@ germ5.bounceOff(line12);
 germ5.bounceOff(line13);
 germ5.bounceOff(line14);
 germ5.bounceOff(line15);
-germ5.bounceOff(line16);
+germ5.bounceOff(line16);*/
 germ5.bounceOff(door);
 
+/*
 germ6.bounceOff(line1);
 germ6.bounceOff(line2);
 germ6.bounceOff(line3);
@@ -1063,9 +1097,10 @@ germ6.bounceOff(line12);
 germ6.bounceOff(line13);
 germ6.bounceOff(line14);
 germ6.bounceOff(line15);
-germ6.bounceOff(line16);
+germ6.bounceOff(line16);*/
 germ6.bounceOff(door);
 
+/*
 germ7.bounceOff(line1);
 germ7.bounceOff(line2);
 germ7.bounceOff(line3);
@@ -1081,38 +1116,33 @@ germ7.bounceOff(line12);
 germ7.bounceOff(line13);
 germ7.bounceOff(line14);
 germ7.bounceOff(line15);
-germ7.bounceOff(line16);
+germ7.bounceOff(line16);*/
 germ7.bounceOff(door);
 
-
-
+//display Instructions
+/*displayMsg("Task1","1)Go to the generator room and start it to enter the covid ward\n"+
+"2)Move the oxygen cylinder to the drop box\n3)Kill all the germs");*/
 
 }
+
+
 function draw() {
-  background("WHITE");  
-
-
+  background("WHITE");
   if (gameState === PLAY){
-     
-    
-game();
+    game();
   
-    if(gameState===PLAY && medal1.visible===true && medal2.visible===true && medal3.visible===true){
-     
+    if(gameState===PLAY && medal1.visible===true && 
+      medal2.visible===true && medal3.visible===true){     
       gameState=END;
-
-  
-
     }
   
-
-
-  if(life<=0|| gameState===PLAY && medal1.visible===true && medal2.visible===true && medal3.visible===true){
-    gameState=END;
+    if(life<=0|| gameState===PLAY && 
+      medal1.visible===true && 
+      medal2.visible===true && medal3.visible===true){
+      gameState=END;
+    }
+ 
   }
-
-  
-}
 
   else if (gameState === END) {
     blnt.visible=true;
@@ -1120,74 +1150,73 @@ game();
     wdd.visible=true;
     playAgain.visible=true;
     test.visible=false;
-line1.destroy();
-line2.destroy();
-line3.destroy();
-line4.destroy();
-line5.destroy();
-line6.destroy();
-line7.destroy();
-line8.destroy();
-line9.destroy();
-line10.destroy();
-line11.destroy();
-line12.destroy();
-line13.destroy();
-line14.destroy();
-line15.destroy();
-line16.destroy();
-doctor.destroy();
-door.destroy();
-bed1.destroy();
-bed2.destroy();
-bed3.destroy();
-bed4.destroy();
-bed5.destroy();
-bed6.destroy();
-gen1.destroy();
-genB1.destroy();
-onB.destroy();
-offB.destroy();
-germ1.destroy();
-germ2.destroy();
-germ3.destroy();
-germ4.destroy();
-germ5.destroy();
-germ6.destroy();
-germ7.destroy();
-o2.destroy();
-dropBox.destroy();
-medal1.destroy();
-medal2.destroy();
-medal3.destroy();
-saniGroup.destroyEach();
-saniFGroup.destroyEach();
+    lineGrp.destroyEach();
+    /*
+    line1.destroy();
+    line2.destroy();
+    line3.destroy();
+    line4.destroy();
+    line5.destroy();
+    line6.destroy();
+    line7.destroy();
+    line8.destroy();
+    line9.destroy();
+    line10.destroy();
+    line11.destroy();
+    line12.destroy();
+    line13.destroy();
+    line14.destroy();
+    line15.destroy();
+    line16.destroy();*/
+    doctor.destroy();
+    door.destroy();
+    bed1.destroy();
+    bed2.destroy();
+    bed3.destroy();
+    bed4.destroy();
+    bed5.destroy();
+    bed6.destroy();
+    gen1.destroy();
+    genB1.destroy();
+    onB.destroy();
+    offB.destroy();
+    germGroup.destroyEach();
+    /*
+    germ1.destroy();
+    germ2.destroy();
+    germ3.destroy();
+    germ4.destroy();
+    germ5.destroy();
+    germ6.destroy();
+    germ7.destroy();*/
+    o2.destroy();
+    dropBox.destroy();
+    medal1.destroy();
+    medal2.destroy();
+    medal3.destroy();
+    saniGroup.destroyEach();
+    saniFGroup.destroyEach();
 
-if(gameState===END&&mousePressedOver(playAgain)){
-  playAgain.visible=false;
-  cm.visible=false;
-  wdd.visible=false;
-  blnt.visible=false;
-  score=0;
-  life=1;
-  gameState=PLAY;
-  setup();
-  
-  
+    if(mousePressedOver(playAgain)){
+      playAgain.visible=false;
+      cm.visible=false;
+      wdd.visible=false;
+      blnt.visible=false;
+      score=0;
+      life=1;
+      gameState=PLAY;
+      setup();
+    }
 
-
-
-}
-
-}
-
+  }
 
   drawSprites();
+  
   textSize(14);
   fill("red")
   text("kill: "+ score,200,50);
   text("life: "+ life,200,100);
-
+ 
   text("Task's ----" ,1200,180);
   text("1)Go to the generator room and start it to enter the covid ward",1050,210);
   text("2)Move the oxygen cylinder to the drop box",1120,240);
@@ -1214,34 +1243,22 @@ if(gameState===END&&mousePressedOver(playAgain)){
   fill("BROWN")
   text("BEING",1190,50);
   text("DOCTOR",1300,50);
-
-
-
-
-
-  
 }
 
 function createSani() {
-  if (frameCount % 10 === 0){
-  var sani= createSprite(100, 300, 60, 10);
-  sani.addImage(saniImage);
-  sani.x = 175;
-  sani.y=doctor.y;
-  sani.x = doctor.x;
-  sani.velocityX = 2;
-  
-  sani.scale = 0.1;
-  saniGroup.add(sani);
-   
+    if (frameCount % 10 === 0){
+    var sani= createSprite(100, 300, 60, 10);
+    sani.addImage(saniImage);
+    sani.x = 175;
+    sani.y=doctor.y;
+    sani.x = doctor.x;
+    sani.velocityX = 2;
+    
+    sani.scale = 0.1;
+    saniGroup.add(sani);
+    
+  }
 }
-
-}
-
-
-
-
-
 
 function createSaniF() {
   if (frameCount % 10 === 0){
@@ -1259,5 +1276,22 @@ function createSaniF() {
 
 }
 
-
+function displayMsg(titleMsg,message){  
+  swal({
+    title: titleMsg,
+    text: message,
+    button: "Close", // Text on button
+    icon: "info", //built in icons: success, warning, error, info
+    timer: 10000, //timeOut for auto-close
+    buttons: {
+      confirm: {
+      text: "OK",
+      value: true,
+      visible: true,
+      className: "",
+      closeModal: true
+    }
+  }
+});
+}
 
