@@ -88,44 +88,53 @@ function setup() {
   lineGrp = createGroup();
   germGroup = createGroup();
   
-  line1=createSprite(660, 30, 740, 20);
+  line1=createSprite(width/2, 30, 740, 20);
+  line1.shapeColor="blue";
   lineGrp.add(line1);
-  line2=createSprite(300,165,20,290);
+  line2=createSprite(width/4-50,height-495,20,290);
+  line2.shapeColor="green";
   lineGrp.add(line2);
-  line3=createSprite(260,320,290,20);
+  line3=createSprite(width/4-50,height-340,300,20);
+  line3.shapeColor="orange";
   lineGrp.add(line3);
-  line4=createSprite(110,370,20,120);
+  line4=createSprite(width/4-200,370,20,120);
+  line4.shapeColor="yellow";
   lineGrp.add(line4);
-  line5=createSprite(260,420,290,20);
+  line5=createSprite(width/4-50,420,320,20);
+  line5.shapeColor="purple";
   lineGrp.add(line5);
-  line6=createSprite(260,500,290,20);
+  line6=createSprite(width/4-50,500,300,20);
+  line6.shapeColor="black";
   lineGrp.add(line6);
-  line7=createSprite(110,470,20,80);
+  line7=createSprite(width/4-200,470,20,80);
+  line7.shapeColor="pink";
   lineGrp.add(line7);
-  line8=createSprite(230,590,20,200);
+  line8=createSprite(width/4-100,590,20,190);
+  line8.shapeColor="lightblue";
   lineGrp.add(line8);
-  line9=createSprite(625, height-20, 810, 20);
+  line9=createSprite(width/2-20, height-20, 820, 20);
   line9.shapeColor="red";
   lineGrp.add(line9);
-  line10=createSprite(500,140,20,200);
+  line10=createSprite(width/2-140,140,20,200);
+  line10.shapeColor="violet";
   lineGrp.add(line10);
-  line11=createSprite(560,240,140,20);
- 
+  line11=createSprite(width/2-80,240,140,20);
+   line11.shapeColor="lightgreen"
   lineGrp.add(line11);
-  line12=createSprite(620,315,20,150);
-  
+  line12=createSprite(width/2-20,315,20,150);
+  line12.shapeColor="silver";
   lineGrp.add(line12);
-  line13=createSprite(810,470,400,20);
-  
+  line13=createSprite(width/2+170,470,400,20);
+  line13.shapeColor="lavender";
   lineGrp.add(line13);
-  line14=createSprite(1020,260,20,440);
-  
+  line14=createSprite(width-260,height-420,20,440);
+  line14.shapeColor="darkgrey";
   lineGrp.add(line14);
-  line15=createSprite(370,180,160,20);
-  
+  line15=createSprite(width/4+20,180,160,20);
+  line15.shapeColor="brown";
   lineGrp.add(line15);
   line16=createSprite(1020,500,20,280);
- 
+  line16.shapeColor="darkgreen";
   lineGrp.add(line16);
 
   
@@ -243,7 +252,8 @@ function setup() {
   medal3.addImage("m1",medalImg);
   medal3.scale=0.15;
 
-  door=createSprite(620,425,20,70);
+  door=createSprite(width/2-20,425,20,70);
+  door.shapeColor="gold"
 
   o2=createSprite(380,370,20,20);
   o2.addImage("tank",o2Image);
@@ -263,7 +273,8 @@ function setup() {
 
   ooline=createSprite(470,100,10,200);
 
-  startLine=createSprite(340,580,10,160)
+  startLine=createSprite(width/4+20,height-90,10,160)
+  startLine.shapeColor="aqua"
 
   blnt=createSprite(600,270,60,60);
   blnt.addImage("blntI",blntImage);
@@ -314,6 +325,7 @@ displayMsg("General Instructions",
 }
 
 function game(){
+
   
   if (mousePressedOver(test)){
 
@@ -1216,9 +1228,11 @@ function draw() {
   fill("red")
   text("kill: "+ score,200,50);
   text("life: "+ life,200,100);
- 
+  displayTasks("Task2 --1)Go to the generator room and start it to enter the covid ward\n"+
+  "2)Move the oxygen cylinder to the drop box\n3)Kill all the germs");
+  
   text("Task's ----" ,1200,180);
-  text("1)Go to the generator room and start it to enter the covid ward",1050,210);
+  /*text("1)Go to the generator room and start it to enter the covid ward",1050,210);
   text("2)Move the oxygen cylinder to the drop box",1120,240);
   text("3)Kill all the germs",1190,270);
   text("--------------------------------------------------------------------------------------------------------------------",1050,300);
@@ -1233,7 +1247,7 @@ function draw() {
   text("/ You have only 1 life if a germ touches you then the game will stop",1055,570);
   text("/ If the germ touches  any 1 patient then the game will stop",1055,600);
   text("/ The button to start the generator appears on the left side of the screen",1055,630);
-  text("/ If the sanitizer touches the germ then the score increases by 1",1060,658);
+  text("/ If the sanitizer touches the germ then the score increases by 1",1060,658);*/
   
   textSize(120);
   fill("red")
@@ -1293,5 +1307,11 @@ function displayMsg(titleMsg,message){
     }
   }
 });
+}
+
+
+function displayTasks(taskMsg){
+  text(taskMsg, 1050,210);
+
 }
 
